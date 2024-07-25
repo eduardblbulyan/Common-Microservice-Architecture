@@ -1,1 +1,62 @@
-FROM grafana/grafana:latest 
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: myshop_db
+      POSTGRES_USER: myshop_user
+      POSTGRES_PASSWORD: myshop_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    build: ./redis
+
+  elasticsearch:
+    build: ./elasticsearch
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  web:
+    build: .
+    command: gunicorn --workers 3 myshop.wsgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+    environment:
+      - DATABASE_URL=postgres://myshop_user:myshop_password@db:5432/myshop_db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - web
+
+  grafana:
+    build: ./grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
