@@ -22,9 +22,9 @@ services:
 
   web:
     build: .
-    command: gunicorn --workers 3 myshop.wsgi:application
+    command: gunicorn --bind 0.0.0.0:8000 myshop.wsgi:application
     volumes:
-      - .:/app
+      - ./myshop:/app
     ports:
       - "8000:8000"
     depends_on:

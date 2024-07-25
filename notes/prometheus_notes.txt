@@ -1,2 +1,5 @@
 sudo systemctl start prometheus
 localhost:9090
+
+in data source should add http://prometheus:9090
+http://localhost:9090/targets to see targets
