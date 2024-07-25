@@ -1,4 +1,4 @@
 .venv/
-MyShop/MyShop/__pycache__/
-MyShop/shop/__pycache__/
-MyShop/shop/migrations/
+myshop/myshop/__pycache__/
+myshop/shop/__pycache__/
+myshop/shop/migrations/

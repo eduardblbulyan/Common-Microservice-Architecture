@@ -1,0 +1,4 @@
+gunicorn is WSGI for webserver(nginx) and Python(Flask,Django...)
+
+--> pip install gunicorn
+gunicorn --workers 3 myshop.wsgi:application
