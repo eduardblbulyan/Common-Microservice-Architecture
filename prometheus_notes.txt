@@ -1,0 +1,2 @@
+sudo systemctl start prometheus
+localhost:9090
