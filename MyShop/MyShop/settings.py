@@ -80,7 +80,9 @@ DATABASES = {
         "NAME": "myshop_db",
         "USER": "myshop_user",
         "PASSWORD": "myshop_pass",
-        "HOST": "localhost",
+        "HOST": "localhost",  
+        # for now we should name the HOST as `localhost`
+        # but after configuring docker-compose.yaml should be named as 'db'
         "PORT": "5432"
     }
 }
