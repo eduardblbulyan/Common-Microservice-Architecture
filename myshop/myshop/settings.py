@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-2a^46fk9&(*vzs)w06p9d^g*%w=zb)d+w$g41h+b2e^ixvw$zr"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -49,6 +49,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+INSTALLED_APPS += ['django_prometheus']
+MIDDLEWARE += ['django_prometheus.middleware.PrometheusBeforeMiddleware', 'django_prometheus.middleware.PrometheusAfterMiddleware']
 
 ROOT_URLCONF = "myshop.urls"
 
